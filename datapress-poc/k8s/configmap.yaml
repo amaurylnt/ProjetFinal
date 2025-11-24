@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: datapress-config
+  namespace: datapress-recette
+data:
+  APP_NAME: "DataPress API"
+  APP_ENV: "recette"
+  API_BASE_URL: "http://datapress-api:80"
+  FRONT_VERSION: "v1.0 POC"

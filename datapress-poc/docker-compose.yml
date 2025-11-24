@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.api
+    container_name: datapress-api
+    environment:
+      APP_NAME: "DataPress API (dev)"
+      APP_ENV: "development"
+      API_SECRET_TOKEN: "dev-secret-token"
+    ports:
+      - "8000:8000"
+    networks:
+      - datapress-net
+
+  front:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.front
+    container_name: datapress-front
+    environment:
+      FRONT_VERSION: "v1.0 POC"
+      API_BASE_URL: "http://api:8000"
+      API_PUBLIC_URL: "http://localhost:8000"
+    ports:
+      - "8080:8000"
+    depends_on:
+      - api
+    networks:
+      - datapress-net
+
+networks:
+  datapress-net:
+    driver: bridge
